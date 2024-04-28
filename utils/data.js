@@ -133,10 +133,19 @@ const reactions = [
     { reactionBody: "So much depth!" }
 ];
 
-const getRandomValue = (arr) => arr[Math.floor(Math.random() * arr.length)];
-// Put random user values in an array that's length 'thoughData'
+getRandomValue = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
+getRandomValue(userData);
 
+// Assign a random user to each thought
+const thoughtData = [];
+thoughts.forEach((thought) => {
+    const randomUser = getRandomValue(userData);
+    const newThought = {
+        thoughtText: thought.thoughtText,
+        username: randomUser.username
+    };
+    thoughtData.push(newThought);
+});
 
-
-module.exports = { userData, getRandomValue, thoughts };
+module.exports = { userData, thoughtData };
