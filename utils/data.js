@@ -1,5 +1,7 @@
+const { User } = require('../models')
+
 // Seed data for users
-const users = [
+const userData = [
     { username: 'jolly.llama', email: 'jolly.llama@example.com' },
     { username: 'brave.panther', email: 'brave.panther@example.com' },
     { username: 'crazy.dragon', email: 'crazy.dragon@example.com' },
@@ -16,7 +18,6 @@ const users = [
     { username: 'daring.dragon', email: 'daring.dragon@example.com' },
     { username: 'fearless.panther', email: 'fearless.panther@example.com' },
     { username: 'graceful.unicorn', email: 'graceful.unicorn@example.com' },
-    { username: 'jolly.llama', email: 'jolly.llama@example.com' },
     { username: 'magical.pixie', email: 'magical.pixie@example.com' },
     { username: 'noble.elephant', email: 'noble.elephant@example.com' }
 ];
@@ -131,3 +132,11 @@ const reactions = [
     { reactionBody: "Totally addictive!" },
     { reactionBody: "So much depth!" }
 ];
+
+const getRandomValue = (arr) => arr[Math.floor(Math.random() * arr.length)];
+// Put random user values in an array that's length 'thoughData'
+
+
+
+
+module.exports = { userData, getRandomValue, thoughts };
