@@ -14,4 +14,8 @@ const reactionSchema = new Schema(
     }
 );
 
+reactionSchema.virtual('formattedCreatedAt').get(function () {
+    return this.createdAt.toLocaleString();
+});
+
 module.exports = reactionSchema; 

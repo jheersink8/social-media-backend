@@ -25,7 +25,6 @@ connection.once('open', async () => {
             username: user._id
         });
     }
-    console.log("BREAK")
     console.log(thoughtUsers[1].username)
     await Thought.insertMany(thoughtUsers);
 });

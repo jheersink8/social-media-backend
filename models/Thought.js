@@ -8,9 +8,10 @@ const thoughtSchema = new Schema(
         thoughtText: { type: String, required: true, min_length: 1, max_length: 250 },
         // Use getter method here to format timestamp on query 
         createdAt: { type: Date, default: Date.now },
-        username: { type: String, 
+        username: {
+            type: String,
             required: true
-         },
+        },
         // Sub-document array value for a thought's reactions 
         reactions: [reactionSchema]
     },
@@ -19,6 +20,10 @@ const thoughtSchema = new Schema(
         id: false
     }
 );
+
+thoughtSchema.virtual('formattedCreatedAt').get(function () {
+    return this.createdAt.toLocaleString();
+});
 
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
