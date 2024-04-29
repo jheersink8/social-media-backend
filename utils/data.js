@@ -135,8 +135,6 @@ const reactions = [
 
 getRandomValue = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-getRandomValue(userData);
-
 // Assign a random user to each thought
 const thoughtData = [];
 thoughts.forEach((thought) => {
@@ -148,4 +146,22 @@ thoughts.forEach((thought) => {
     thoughtData.push(newThought);
 });
 
-module.exports = { userData, thoughtData };
+
+// Pick a value between 0 and 5 for friend picker and reaction picker
+random5 = () => Math.floor(Math.random() * 6);
+
+
+// Pick a random reaction
+
+const generateReaction = () => {
+    const reactionData = [];
+    for (let i = 0; i < random5(); i++) {
+        const randomUser = getRandomValue(userData);
+        reactionData.push({
+            reactionBody: getRandomValue(reactions).reactionBody,
+            username: randomUser.username
+        });
+    }
+    return reactionData;
+};
+module.exports = { userData, thoughtData, random5, generateReaction };
