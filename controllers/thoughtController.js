@@ -65,23 +65,50 @@ module.exports = {
     },
     // Delete a thought
     async deleteThought(req, res) {
-        try { 
-           const thought = await Thought.findOneAndDelete({_id: req.params.thoughtId})
-           if(!thought) {
-            res.status(404).json({message: 'no thought with that ID exists'})
-           }
-           res.json({ message: 'Thought successfully deleted.'})
+        try {
+            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId })
+            if (!thought) {
+                res.status(404).json({ message: 'no thought with that ID exists' })
+            }
+            res.json({ message: 'Thought successfully deleted.' })
         } catch (err) {
             console.error("Error occurred:", err);
             res.status(500).json(err);
         }
     },
     // Add a reaction
-    async addReaction(req,res) {
-    }, 
+    async addReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $push: { reactions: req.body } },
+                { runValidators: true, new: true }
+            );
 
+            if (!thought) {
+                return res.status(404).json({ message: 'No reaction with that id' });
+            }
+            res.json(thought);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
     // Delete a reaction 
-    async deleteReaction(req,res) {
+    async deleteReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $pull: { reactions: { reactionId: req.params.reactionId } } },
+                { runValidators: true, new: true }
+            );
 
+            if (!thought) {
+                return res.status(404).json({ message: 'No reaction with that id' });
+            }
+            res.json(thought);
+        } catch (err) {
+            console.error("Error occurred:", err);
+            res.status(500).json(err);
+        }
     }
 };
