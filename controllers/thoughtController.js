@@ -75,5 +75,13 @@ module.exports = {
             console.error("Error occurred:", err);
             res.status(500).json(err);
         }
+    },
+    // Add a reaction
+    async addReaction(req,res) {
+    }, 
+
+    // Delete a reaction 
+    async deleteReaction(req,res) {
+
     }
 };
