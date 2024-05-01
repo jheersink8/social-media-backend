@@ -1,33 +1,28 @@
 # social-media-backend
 
-GitHub Repo: https://github.com/jheersink8/eCommerce-backend
+GitHub Repo: https://github.com/jheersink8/social-media-backend
 
-Deployed Site: https://drive.google.com/file/d/11MGHF-gG5b7L77zZozOaLzav2jBvHpzc/view
+Deployed Site: 
 
 ## Description
-This tool provides the database backend for an eCommerce website. The database (called eCommerce_db) houses four tables:
--	Category (contains the high level category of each product the site sells)
--	Product (the actual product itself)
--	Tag (granular information about each product)
--	ProductTag (the through table that connects the many to many relationship of Product and Tag)
+This tool provides the database backend for a social media website. The database has the following schema:
+- User (contains username, email, thoughts, and friends)
+- Thought (contains thoughtText, createdAt, username, and reactions)
+- Reaction (contains reactionBody, username, and createdAt) 
 
-While there is no frontend for this tool, all the database functionality can be viewed through Insomnia (which is displayed in the demo video below). This tool demonstrates a working knowledge of the following tools:
--	PostgreSQL
--	Sequelize 
--	The use of .env files
--	Express.js
--	Node.js
--	Database entity relationships
--	Insomnia
+With these schema in place, users can add friends to their profile, create thoughts, and users can react to those thoughts. While there is no frontend for this tool, all the database functionality can be viewed through Insomnia (which is displayed in the demo video below). This tool demonstrates a working knowledge of the following tools:
+- NoSQL
+- MongoDB and Mongoose
+- Express.js
+- Node.js
+- Insomnia
+
 
 
 ## Installation 
 Before using this application, install all the node modules, the database, and all the seed data by following the steps below: 
-1.	Open a terminal that is running from the same folder as the server.js file
-2.	Run the command (with no quotes) “psql -U postgres -f db/schema.sql”
-3.	Enter the password “1234”
-4.	Run the command “npm run seed”
-5.	Run the command “node server.js” to sync Sequelize models to the DB
+1.	Open a terminal that is running from the same folder as the index.js file
+2.	Run the command (with no quotes) “npm i && npm run seed && npm run start   ”
 
 
 ## Usage
@@ -36,17 +31,13 @@ Once the tool is invoked using the steps above, the user can view the routes usi
 
 **GET Routes**
 
-    All categories (http://localhost:3001/api/categories)
+    All Users (http://localhost:3001/api/users/)
 
-    All products (http://localhost:3001/api/products)
+    A Single User (http://localhost:3001/api/users/:userId)
 
-    All tags (http://localhost:3001/api/tags)
+    All Thoughts (http://localhost:3001/api/thoughts/)
 
-    A single category (http://localhost:3001/api/categories/:id)
-
-    A single product (http://localhost:3001/api/products/:id)
-
-    A single tag (http://localhost:3001/api/tags/:id)
+    A Single Thought (http://localhost:3001/api/thoughts/:thoughtId)
 
 <br/>
 
@@ -54,66 +45,43 @@ Once the tool is invoked using the steps above, the user can view the routes usi
 
 **POST Routes**
 
-    Categories (http://localhost:3001/api/categories)
+    Create New User (http://localhost:3001/api/users)
 
-    {
-    "category_name": "TEXT HERE"
-    }
+    Create New Thought (http://localhost:3001/api/thoughts/)
+
+    Add a Friend to a User (http://localhost:3001/api/users/:userId/friends/:friendId)
+
+    Add a Reaction to a Thought (http://localhost:3001/api/thoughts/:thoughtId/)
+
   <br/>
-
-    Products (http://localhost:3001/api/products)
-
-    {
-      "product_name": " TEXT HERE ",
-      "price": ####.##,
-      "stock": ##,
-      "category_id": #,
-      "tagIds": [#, #]
-    }
-  <br/>
-
-    Tags (http://localhost:3001/api/tags)
-
-    {
-    "tag_name": " TEXT HERE "
-    }
-<br/>
-<br/>
 
 **PUT Routes**
 
-    Categories (http://localhost:3001/api/categories/:id)
-    {
-      "category_name": " TEXT HERE "
-    }
-  <br/>
+    Update a User (http://localhost:3001/api/users/:userId)
 
-    Products (http://localhost:3001/api/products/:id)
-    {
-      "category_name": " TEXT HERE "
-    }
-  <br/>
-
-    Tags (http://localhost:3001/api/tags/:id)
-    {
-      "tag_name": " TEXT HERE "
-    }
+    Update a Thought (http://localhost:3001/api/thoughts/:thoughtId)
+  
   <br/>
 
 **DELETE Routes**
 
-    Categories (http://localhost:3001/api/categories/:id)
-    Products (http://localhost:3001/api/products/:id)
-    Tags (http://localhost:3001/api/tags/:id)
+    Delete a User (http://localhost:3001/api/users/:userId)
+
+    Delete a Thought (http://localhost:3001/api/thoughts/:thoughtId)
+
+    Remove a Friend from a User (http://localhost:3001/api/users/:userId/friends/:friendId)
+
+    Remove a Reaction from a Thought (http://localhost:3001/api/thoughts/:thoughtId/reactions/:reactionId)
+  
 <br/>
 
 
-![A screenshot of a GET request payload being initiated in Insomnia.](./Assets/images/screenshot.png)
+![A screenshot of a DELETE request payload being initiated in Insomnia.](./Assets/images/screenshot.png)
 
 
 ## Credits
-- Scenario presented by Denver University in the Bootcamp course ID DU-VIRT-FSF-PT-12-2023-U-LOLC-MWTH under Module 13 Challenge. Started code provided by through the curriculum and remaining code was refactored by and submitted by Jordan R. Heersink.
-- This tool uses Node.js, Express.js, PostgreSQL, and Sequelize
+- Scenario presented by Denver University in the Bootcamp course ID DU-VIRT-FSF-PT-12-2023-U-LOLC-MWTH under Module 18 Challenge. All code was written by Jordan R. Heersink.
+- This tool uses Node.js, Express.js, MongoDB, and Mongoose
 
 
 ## License
