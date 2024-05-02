@@ -4,7 +4,8 @@ module.exports = {
     // Get all thoughts
     async getThoughts(req, res) {
         try {
-            const thoughts = await Thought.find();
+            const thoughts = await Thought.find()
+            .select('-__v -reactions._id ')
             res.json(thoughts);
         } catch (err) {
             res.status(500).json(err);
@@ -14,7 +15,8 @@ module.exports = {
     async getSingleThought(req, res) {
         try {
             const thought = await Thought.findOne({ _id: req.params.thoughtId })
-
+                .select('-__v -reactions._id ')
+           
             if (!thought) {
                 return res.status(404).json({ message: 'no thought with that id' })
             }
@@ -58,7 +60,7 @@ module.exports = {
             if (!thought) {
                 res.status(404).json({ message: 'No thought with that id' })
             }
-            res.json(thought);
+            res.json({ message: 'Thought successfully updated.' });
         } catch (err) {
             res.status(500).json(err);
         }
@@ -88,7 +90,7 @@ module.exports = {
             if (!thought) {
                 return res.status(404).json({ message: 'No reaction with that id' });
             }
-            res.json(thought);
+            res.json({ message: 'Reaction successfully added.' })
         } catch (err) {
             res.status(500).json(err);
         }
@@ -105,7 +107,7 @@ module.exports = {
             if (!thought) {
                 return res.status(404).json({ message: 'No reaction with that id' });
             }
-            res.json(thought);
+            res.json({ message: 'Reaction successfully removed.' })
         } catch (err) {
             console.error("Error occurred:", err);
             res.status(500).json(err);

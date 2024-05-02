@@ -2,7 +2,7 @@
 
 GitHub Repo: https://github.com/jheersink8/social-media-backend
 
-Deployed Site: 
+Deployed Site: https://drive.google.com/file/d/12U4qYD-i8hc8TTru1GlNlYEGaza9DboZ/view 
 
 ## Description
 This tool provides the database backend for a social media website. The database has the following schema:

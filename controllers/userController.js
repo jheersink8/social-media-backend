@@ -6,8 +6,9 @@ module.exports = {
         try {
             const users = await User.find()
                 .populate([
-                    { path: 'thoughts', select: '-__v' },
-                    { path: 'friends', select: '-__v -_id -email -thoughts' }
+                    { path: 'thoughts', select: '-__v -reactions -username', options: { lean: true } },
+
+                    { path: 'friends', select: '-__v -_id -email -thoughts -friends', options: { lean: true } }
                 ])
             res.json(users);
         } catch (err) {
@@ -20,8 +21,9 @@ module.exports = {
         try {
             const user = await User.findOne({ _id: req.params.userId })
                 .populate([
-                    { path: 'thoughts', select: '-__v' },
-                    { path: 'friends', select: '-__v -_id -email -thoughts' }
+                    { path: 'thoughts', select: '-__v -reactions -username', options: { lean: true } },
+
+                    { path: 'friends', select: '-__v -_id -email -thoughts -friends', options: { lean: true } }
                 ]);
             if (!user) {
                 return res.status(404).json({ message: 'no user with that id' })
@@ -53,7 +55,7 @@ module.exports = {
             if (!user) {
                 res.status(404).json({ message: 'No user with that id' })
             }
-            res.json(user);
+            res.json({ message: 'User successfully updated.' });
         } catch (err) {
             res.status(500).json(err);
         }
@@ -68,8 +70,7 @@ module.exports = {
             await Thought.deleteMany({ _id: { $in: user.thoughts } })
             res.json({ message: 'user successfully deleted.' })
         } catch (err) {
-            console.error("Error occurred:", err);
-            res.status(500).json(err);
+            res.json({ message: 'User successfully deleted.' });
         }
     },
     //Add a friend to a user
@@ -85,7 +86,7 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({ message: 'No user with that id' })
             }
-            res.json(user);
+            res.json({ message: 'Friend successfully added.' })
         } catch (err) {
             res.status(500).json(err);
         }
@@ -101,7 +102,7 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({ message: 'No friend with that ID' })
             }
-            res.json(user);
+            res.json({ message: 'Friend successfully removed.' })
         } catch (err) {
             res.status(500).json(err);
         };
